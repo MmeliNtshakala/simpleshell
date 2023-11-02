@@ -1,33 +1,34 @@
 #include "shell.h"
 
 /**
-* checkbuild - checks if the command is a buildin
+* c_build- checks if buildin
 * @arv: array of arguments
 * Return: pointer to function that takes arv and returns void
 */
-void(*checkbuild(char **arv))(char **arv)
+void(*c_build(char **arv))(char **arv)
 {
-	int i, j;
+	int x;
+	int num;
 	mybuild T[] = {
-		{"exit", exitt},
+		{"exit", escaping},
 		{"env", env},
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
 		{NULL, NULL}
 	};
 
-	for (i = 0; T[i].name; i++)
+	for (x = 0; T[x].name; x++)
 	{
-		j = 0;
-		if (T[i].name[j] == arv[0][j])
+		num = 0;
+		if (T[x].name[num] == arv[0][num])
 		{
-			for (j = 0; arv[0][j]; j++)
+			for (num = 0; arv[0][num]; num++)
 			{
-				if (T[i].name[j] != arv[0][j])
+				if (T[x].name[num] != arv[0][num])
 					break;
 			}
-			if (!arv[0][j])
-				return (T[i].func);
+			if (!arv[0][num])
+				return (T[x].func);
 		}
 	}
 	return (0);

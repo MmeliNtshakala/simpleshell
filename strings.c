@@ -1,114 +1,118 @@
 #include "shell.h"
 
 /**
- * _strdup - returns a pointer to a newly allocated space in memory, which
+ * _strdup- returns a pointer to a newly allocated space in memory, which
  * contains a copy of the string given as a parameter
  * @str: pointer to a string
+ *
  * Return: pointer to a string
  */
-char *_strdup(char *str)
+char *_strdup(char *string)
 {
-	int i, l;
-	char *new;
+	int x;
+	int num;
+	char *next;
 
-	if (!str)
+	if (!string)
 	{
 		return (NULL);
 	}
-	for (l = 0; str[l] != '\0';)
+	for (num = 0; string[num] != '\0';)
 	{
-		l++;
+		num++;
 	}
-	new = malloc(sizeof(char) * l + 1);
-	if (!new)
+	next = malloc(sizeof(char) * num + 1);
+	if (!next)
 	{
 		return (NULL);
 	}
-	for (i = 0; i < l; i++)
+	for (x = 0; x < num; x++)
 	{
-		new[i] = str[i];
+		next[x] = string[x];
 	}
-	new[l] = str[l];
-	return (new);
+	next[num] = string[num];
+	return (next);
 }
 
 /**
- * concat_all - concats 3 strings in a newly allocated memory
- * @name: first string
- * @sep: second string
- * @value: Third string
+ * concat_all- concats 3 strings in a newly allocated memory
+ * @name: string
+ * @sep: 2nd string
+ * @value: 3rd string
+ *
  * Return: pointer to the new string
  */
 char *concat_all(char *name, char *sep, char *value)
 {
-	char *result;
-	int l1, l2, l3, i, k;
+	char *output;
+	int l1, l2, l3, x, num;
 
-	l1 = _strlen(name);
-	l2 = _strlen(sep);
-	l3 = _strlen(value);
+	l1 = string_len(name);
+	l2 = string_len(sep);
+	l3 = string_len(value);
 
-	result = malloc(l1 + l2 + l3 + 1);
-	if (!result)
+	output = malloc(l1 + l2 + l3 + 1);
+	if (!output)
 		return (NULL);
 
-	for (i = 0; name[i]; i++)
-		result[i] = name[i];
-	k = i;
+	for (x = 0; name[x]; x++)
+		output[x] = name[x];
+	num = x;
 
-	for (i = 0; sep[i]; i++)
-		result[k + i] = sep[i];
-	k = k + i;
+	for (x = 0; sep[x]; x++)
+		output[num + x] = sep[x];
+	num = num + x;
 
-	for (i = 0; value[i]; i++)
-		result[k + i] = value[i];
-	k = k + i;
+	for (x = 0; value[x]; x++)
+		output[num + x] = value[x];
+	num = num + x;
 
-	result[k] = '\0';
+	output[num] = '\0';
 
-	return (result);
+	return (output);
 }
 
 /**
- * _strlen - it gives the length of a string
+ * string_len- string length
  * @s: pointer to the string
+ *
  * Return: the length of string
  */
-int _strlen(char *s)
+int string_len(char *s)
 {
-	int i = 0;
+	int x = 0;
 
-	while (*(s + i) != '\0')
+	while (*(s + x) != '\0')
 	{
-		i++;
+		x++;
 	}
-	return (i);
+	return (x);
 }
 
 /**
- * _putchar - writes the character c to stdout
- * @c: The character to print
+ * _putchar- writes the character c to stdout
+ * @charecter: The character to print
  *
- * Return: On success 1.
+ * Return: On success 1
  * On error, -1 is returned, and errno is set appropriately.
  */
-int _putchar(char c)
+int _putchar(char charecter)
 {
-	return (write(1, &c, 1));
+	return (write(1, &charecter, 1));
 }
 
 /**
- * _puts - prints a string
- * @str: pointer to string
+ * _puts- prints a string
+ * @string: pointer to string
  */
 
-void _puts(char *str)
+void _puts(char *string)
 {
-	int i = 0;
+	int x = 0;
 
-	while (str[i])
+	while (string[x])
 	{
-		_putchar(str[i]);
-		i++;
+		_putchar(string[x]);
+		x++;
 	}
 }

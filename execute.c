@@ -8,40 +8,40 @@
  * Return: array of pointers to words
  */
 
-char **splitstring(char *str, const char *delim)
+char **splitstring(char *string, const char *delim)
 {
-	int i, wn;
+	int x, won;
 	char **array;
 	char *token;
 	char *copy;
 
-	copy = malloc(_strlen(str) + 1);
+	copy = malloc(string_len(string) + 1);
 	if (copy == NULL)
 	{
-		perror(_getenv("_"));
+		perror(get_env("_"));
 		return (NULL);
 	}
-	i = 0;
-	while (str[i])
+	x = 0;
+	while (string[x])
 	{
-		copy[i] = str[i];
-		i++;
+		copy[x] = string[x];
+		x++;
 	}
-	copy[i] = '\0';
+	copy[x] = '\0';
 
 	token = strtok(copy, delim);
 	array = malloc((sizeof(char *) * 2));
 	array[0] = _strdup(token);
-
-	i = 1;
-	wn = 3;
+	
+	x = 1;
+	won = 3;
 	while (token)
 	{
 		token = strtok(NULL, delim);
-		array = _realloc(array, (sizeof(char *) * (wn - 1)), (sizeof(char *) * wn));
-		array[i] = _strdup(token);
-		i++;
-		wn++;
+		array = real_alloc(array, (sizeof(char *) * (won - 1)), (sizeof(char *) * won));
+		array[x] = _strdup(token);
+		x++;
+		won++;
 	}
 	free(copy);
 	return (array);
@@ -55,38 +55,40 @@ char **splitstring(char *str, const char *delim)
 void execute(char **argv)
 {
 
-	int d, status;
+	int x;
+	int stat;
 
 	if (!argv || !argv[0])
 		return;
-	d = fork();
-	if (d == -1)
+	x = fork();
+	if (x == -1)
 	{
-		perror(_getenv("_"));
+		perror(get_env("_"));
 	}
-	if (d == 0)
+	if (x == 0)
 	{
 		execve(argv[0], argv, environ);
 			perror(argv[0]);
 		exit(EXIT_FAILURE);
 	}
-	wait(&status);
+	wait(&stat);
 }
 
 /**
- * _realloc - Reallocates memory block
+ * real_alloc- Reallocates memory block
  * @ptr: previous pointer
  * @old_size: old size of previous pointer
  * @new_size: new size for our pointer
+ *
  * Return: New resized Pointer
  */
 
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *real_alloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	char *new;
 	char *old;
 
-	unsigned int i;
+	unsigned int x;
 
 	if (ptr == NULL)
 		return (malloc(new_size));
@@ -107,31 +109,31 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	if (new_size > old_size)
 	{
-		for (i = 0; i < old_size; i++)
-			new[i] = old[i];
+		for (x = 0; x < old_size; x++)
+			new[x] = old[x];
 		free(ptr);
-		for (i = old_size; i < new_size; i++)
-			new[i] = '\0';
+		for (x = old_size; x < new_size; x++)
+			new[x] = '\0';
 	}
 	if (new_size < old_size)
 	{
-		for (i = 0; i < new_size; i++)
-			new[i] = old[i];
+		for (x = 0; x < new_size; x++)
+			new[x] = old[x];
 		free(ptr);
 	}
 	return (new);
 }
 
 /**
- * freearv - frees the array of pointers arv
+ * free_arv- frees pointers arv
  *@arv: array of pointers
  */
 
-void freearv(char **arv)
+void free_arv(char **arv)
 {
-	int i;
+	int x;
 
-	for (i = 0; arv[i]; i++)
-		free(arv[i]);
+	for (x = 0; arv[x]; x++)
+		free(arv[x]);
 	free(arv);
 }

@@ -63,10 +63,10 @@ int main(void)
 			execute(arv);
 		else
 		{
-			value = _getenv("PATH");
+			value = get_env("PATH");
 			head = linkpath(value);
 			pathname = _which(arv[0], head);
-			f = checkbuild(arv);
+			f = c_build(arv);
 			if (f)
 			{
 				free(buff);
@@ -83,7 +83,7 @@ int main(void)
 		}
 	}
 	free_list(head);
-	freearv(arv);
+	free_arv(arv);
 	free(buff);
 	return (0);
 }

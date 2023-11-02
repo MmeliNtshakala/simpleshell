@@ -2,33 +2,34 @@
 
 
 /**
- * _getenv - gets the value of the global variable
+ * get_env- gets the value of the global variable
  * @name: name of the global variable
+ *
  * Return: string of value
  */
-char *_getenv(const char *name)
+char *get_env(const char *name)
 {
-	int i, j;
-	char *value;
+	int x, y;
+	char *num;
 
 	if (!name)
 		return (NULL);
-	for (i = 0; environ[i]; i++)
+	for (x = 0; environ[x]; x++)
 	{
-		j = 0;
-		if (name[j] == environ[i][j])
+		y = 0;
+		if (name[y] == environ[x][y])
 		{
-			while (name[j])
+			while (name[y])
 			{
-				if (name[j] != environ[i][j])
+				if (name[y] != environ[x][y])
 					break;
 
-				j++;
+				y++;
 			}
-			if (name[j] == '\0')
+			if (name[y] == '\0')
 			{
-				value = (environ[i] + j + 1);
-				return (value);
+				num = (environ[x] + y + 1);
+				return (num);
 			}
 		}
 	}
@@ -37,13 +38,14 @@ char *_getenv(const char *name)
 
 
 /**
- * add_node_end - adds a new node at the end of a list_t list
+ * add_node- adds a new node at the end of a list_t list
  * @head: pointer to pointer to our linked list
  * @str: pointer to string in previous first node
+ *
  * Return: address of the new element/node
  */
 
-list_path *add_node_end(list_path **head, char *str)
+list_path *add_node(list_path **head, char *string)
 {
 
 	list_path *tmp;
@@ -51,12 +53,12 @@ list_path *add_node_end(list_path **head, char *str)
 
 	new = malloc(sizeof(list_path));
 
-	if (!new || !str)
+	if (!new || !string)
 	{
 		return (NULL);
 	}
 
-	new->dir = str;
+	new->dir = string;
 
 	new->p = '\0';
 	if (!*head)
@@ -81,8 +83,9 @@ list_path *add_node_end(list_path **head, char *str)
 
 
 /**
- * linkpath - creates a linked list for path directories
+ * linkpath- creates a linked list for path directories
  * @path: string of path value
+ *
  * Return: pointer to the created linked list
  */
 list_path *linkpath(char *path)
@@ -94,7 +97,7 @@ list_path *linkpath(char *path)
 	token = strtok(cpath, ":");
 	while (token)
 	{
-		head = add_node_end(&head, token);
+		head = add_node(&head, token);
 		token = strtok(NULL, ":");
 	}
 
@@ -102,9 +105,10 @@ list_path *linkpath(char *path)
 }
 
 /**
- * _which - finds the pathname of a filename
+ * _which- finds the pathname of a filename
  * @filename: name of file or command
  * @head: head of linked list of path directories
+ *
  * Return: pathname of filename or NULL if no match
  */
 char *_which(char *filename, list_path *head)
